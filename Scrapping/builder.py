@@ -4,7 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 import csv
 import time
-from src.output import Property  # Import the Property class from output.py
+from src.model import Property  # Import the Property class from output.py
 
 
 # Function to extract details from a single listing page
