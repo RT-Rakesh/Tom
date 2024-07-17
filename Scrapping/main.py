@@ -1,8 +1,4 @@
-# main.py
-
-from src.builder import scrape_listings, save_to_csv
-
-
+from src.builder import scrape_listings
 def main():
     # Example usage for Centris.ca
     centris_url = 'https://www.centris.ca'
@@ -20,18 +16,16 @@ def main():
         'parking': 'div:contains("Parking (total)") + div'
     }
 
-    max_records = 10  # Maximum records to scrape
+    batch_size = 10  # Number of records to fetch in each batch
+    output_file = 'centris_rental_properties.csv'
 
     # Scrape rental listings from Centris.ca
-    rental_properties = scrape_listings(centris_rentals_url, max_records, centris_selectors)
+    rental_properties = scrape_listings(centris_rentals_url, centris_selectors, batch_size, output_file)
 
     if rental_properties:
-        filename = 'centris_rental_properties.csv'
-        save_to_csv(rental_properties, filename)
-        print(f"Saved {len(rental_properties)} properties to {filename}.")
+        print(f"Scraped and saved rental properties to {output_file}.")
     else:
         print("No properties found.")
-
 
 if __name__ == "__main__":
     main()
