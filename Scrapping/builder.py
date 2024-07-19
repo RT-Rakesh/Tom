@@ -65,9 +65,8 @@ def extract_listing_details(listing_url, selectors):
         property_details.YearBuilt = soup.select_one(selectors['year_built']).text.strip() if selectors.get('year_built') else "N/A"
         property_details.ParkingTotal = soup.select_one(selectors['parking']).text.strip() if selectors.get('parking') else "N/A"
     except AttributeError as e:
-        print(f"Error extracting details: {e}")
-        return None
-
+       print(f"Error extracting details: {e}")
+    return None
     return property_details
 
 # Function to fetch a single page of listings
