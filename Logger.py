@@ -34,14 +34,3 @@ class Logger:
 
     def fatal(self, message):
         self.log('FATAL', message)
-
-
-logger = Logger()
-
-logger.info("This is an info message")
-logger.warning("This is a warning message")
-logger.error("This is an error message")
-logger.critical("This is a critical message")
-logger.debug("This is a debug message")
-logger.exception("This is an exception message")
-logger.fatal("This is a fatal message")
