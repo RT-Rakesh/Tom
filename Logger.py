@@ -1,36 +1,70 @@
-import datetime
+from abc import ABC, abstractmethod
 
-class Logger:
-    def __init__(self, log_file='TOM.log'):
-        self.log_file = log_file
+#singleton 
+class singletone:
+    _instance = None
+    def __new__(cls, *args, **kwargs):
+        if not cls._instance:
+            cls._instance = super().__new__(cls)
+        return cls._instance
 
-    def _write_log(self, level, message):
-        timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        log_message = f"{timestamp} - {level} - {message}"
-        with open(self.log_file, 'a') as file:
-            file.write(log_message + '\n')
-        print(log_message)
+# define chain of responsibility handler interface
+class Logger(ABC):
+    @abstractmethod
+    def set_next(self, logger):
+        pass
 
-    def log(self, level, message):
-        self._write_log(level, message)
+    @abstractmethod
+    def log_message(self, level, message):
+        #ex: level="error" , message="null pointer exception"
+        pass
 
-    def info(self, message):
-        self.log('INFO', message)
 
-    def warning(self, message):
-        self.log('WARNING', message)
+class BaseLogger(Logger):
+    _next_logger = None  # link to the next handler/logger
 
-    def error(self, message):
-        self.log('ERROR', message)
+    def set_next(self, logger):
+        self._next_logger = logger
+        return logger
 
-    def critical(self, message):
-        self.log('CRITICAL', message)
+    def log_message(self, level, message):
+        if self._next_logger:
+            return self._next_logger.log_message(level, message)
+        return None
 
-    def debug(self, message):
-        self.log('DEBUG', message)
 
-    def exception(self, message):
-        self.log('EXCEPTION', message)
+# define concrete handlers
+class InfoLogger(BaseLogger):
+    def log_message(self, level, message):
+        print('-- In InfoLogger')
+        if level == 'info':
+            print(f'InfoLogger: {message}')
+        else:
+            super().log_message(level, message)
 
-    def fatal(self, message):
-        self.log('FATAL', message)
+class WarningLogger(BaseLogger):
+    def log_message(self, level, message):
+        print('-- In WarningLogger')
+        if level == 'warning':
+            print(f'WarningLogger: {message}')
+        else:
+            super().log_message(level, message)
+
+class ErrorLogger(BaseLogger):
+    def log_message(self, level, message):
+        print('-- In ErrorLogger')
+        if level == 'error':
+            print(f'ErrorLogger: {message}')
+            print(f'ErrorLogger: sending alert via email to ...')
+        else:
+            super().log_message(level, message)
+
+class CriticalLogger(BaseLogger):
+    def log_message(self, level, message):
+        print('-- In CriticalLogger')
+        if level == 'critical':
+            print(f'CriticalLogger: {message}')
+        else:
+            super().log_message(level, message)
+
+
