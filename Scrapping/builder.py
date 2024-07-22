@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import csv
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from src.model import Property  # Import the Property class from model.py
+from model import Property  # Import the Property class from model.py
 
 # Function to load existing property URLs from the CSV file
 def load_existing_property_urls(csv_filename):
