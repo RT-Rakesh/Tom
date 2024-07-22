@@ -1,4 +1,4 @@
-from src.builder import scrape_listings
+from builder import scrape_listings
 def main():
     # Example usage for Centris.ca
     centris_url = 'https://www.centris.ca'
