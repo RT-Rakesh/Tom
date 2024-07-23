@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import csv
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from model import Property  # Import the Property class from model.py
+from src.model import Property  # Import the Property class from model.py
 
 # Function to load existing property URLs from the CSV file
 def load_existing_property_urls(csv_filename):
@@ -66,11 +66,11 @@ def extract_listing_details(listing_url, selectors):
         property_details.ParkingTotal = soup.select_one(selectors['parking']).text.strip() if selectors.get('parking') else "N/A"
     except AttributeError as e:
        print(f"Error extracting details: {e}")
-    return None
+       return None
     return property_details
 
 # Function to fetch a single page of listings
-def fetch_page(url, selectors, page, base_url, csv_filename, existing_urls):
+def fetch_page(url, selectors, page, base_url, existing_urls):
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
     }
@@ -125,10 +125,6 @@ def fetch_page(url, selectors, page, base_url, csv_filename, existing_urls):
 
 # Function to scrape rental listings from a given URL with configurable parameters
 def scrape_listings(url, selectors, batch_size, output_file):
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
-    }
-
     base_url = url.split('/en/')[0] if '/en/' in url else url.split('/fr/')[0]
     all_properties = []
     page = 1
@@ -143,7 +139,7 @@ def scrape_listings(url, selectors, batch_size, output_file):
             for i in range(10):
                 page_url = f'{base_url}/en/properties~for-rent?view=Thumbnail&uc=3&page={page + i}'
                 print(f"Fetching page: {page + i}, URL: {page_url}")
-                futures.append(executor.submit(fetch_page, page_url, selectors, page + i, base_url, output_file, existing_urls))
+                futures.append(executor.submit(fetch_page, page_url, selectors, page + i, base_url, existing_urls))
 
             page += 10
 
