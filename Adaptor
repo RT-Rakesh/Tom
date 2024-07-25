@@ -1,1 +1,57 @@
+import csv
+import json
+from abc import ABC, abstractmethod
+
+
+class DataAdapter(ABC):
+    @abstractmethod
+    def read_data(self, file_path:str) -> dict:
+        pass
+
+
+class CsvAdapter(DataAdapter):
+
+    def read_data(self, file_path: str) -> dict:
+        data = {}
+        with open(file_path, mode='r') as file:
+            csv_reader = csv.DictReader(file)
+            for row in csv_reader:
+                data[row['id']] = {
+                    'id': row['id'],
+                    'name': row['name'],
+                    'age': row['age']
+                }
+        return data
+
+
+class JsonAdapter(DataAdapter):
+
+    def read_data(self, file_path: str) -> dict:
+        with open(file_path, mode='r') as file:
+            data = json.load(file)
+        return data
+
+class DataReader:
+    def __init__(self, adapter: DataAdapter):
+        self.adapter = adapter
+
+    def display_data(self, file_path: str):
+        data = self.adapter.read_data(file_path)
+        for key, value in data.items():
+            print(f'{key}: {value}')
+
+def main():
+    print('\n============ Reading CSV file ============')
+    csv_adapter = CsvAdapter()
+    reader = DataReader(csv_adapter)
+    reader.display_data('data/data.csv')
+
+    print('\n============ Reading Json file ============')
+    json_adapter = JsonAdapter()
+    reader = DataReader(json_adapter)
+    reader.display_data('data/data.json')
+
+
+if __name__ == '__main__':
+    main()
 
