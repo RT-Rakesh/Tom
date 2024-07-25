@@ -1,57 +1,46 @@
-import csv
-import json
 from abc import ABC, abstractmethod
 
-
-class DataAdapter(ABC):
+# Logger Output Adapter Interface
+class LoggerOutputAdapter(ABC):
     @abstractmethod
-    def read_data(self, file_path:str) -> dict:
+    def write(self, message):
         pass
 
+# Console Output Adapter
+class ConsoleOutputAdapter(LoggerOutputAdapter):
+    def write(self, message):
+        print(message)
 
-class CsvAdapter(DataAdapter):
+# File Output Adapter
+class FileOutputAdapter(LoggerOutputAdapter):
+    def __init__(self, filename):
+        self.filename = filename
 
-    def read_data(self, file_path: str) -> dict:
-        data = {}
-        with open(file_path, mode='r') as file:
-            csv_reader = csv.DictReader(file)
-            for row in csv_reader:
-                data[row['id']] = {
-                    'id': row['id'],
-                    'name': row['name'],
-                    'age': row['age']
-                }
-        return data
+    def write(self, message):
+        with open(self.filename, 'a') as f:
+            f.write(message + '\n')
 
+# Modified SingletonLogger
+class SingletonLogger:
+    _instance = None
 
-class JsonAdapter(DataAdapter):
+    def __new__(cls, *args, **kwargs):
+        if cls._instance is None:
+            cls._instance = super().__new__(cls)
+        return cls._instance
 
-    def read_data(self, file_path: str) -> dict:
-        with open(file_path, mode='r') as file:
-            data = json.load(file)
-        return data
+    def __init__(self, adapter=None, log_level='INFO'):
+        if not hasattr(self, '_initialized'):
+            self._initialized = True
+            self.adapter = adapter or ConsoleOutputAdapter()
+            self.log_level = log_level.upper()
+            self.log_levels = ['FATAL', 'ERROR', 'WARN', 'INFO', 'DEBUG', 'TRACE']
 
-class DataReader:
-    def __init__(self, adapter: DataAdapter):
+    def set_adapter(self, adapter):
         self.adapter = adapter
 
-    def display_data(self, file_path: str):
-        data = self.adapter.read_data(file_path)
-        for key, value in data.items():
-            print(f'{key}: {value}')
-
-def main():
-    print('\n============ Reading CSV file ============')
-    csv_adapter = CsvAdapter()
-    reader = DataReader(csv_adapter)
-    reader.display_data('data/data.csv')
-
-    print('\n============ Reading Json file ============')
-    json_adapter = JsonAdapter()
-    reader = DataReader(json_adapter)
-    reader.display_data('data/data.json')
-
-
-if __name__ == '__main__':
-    main()
+    def log_message(self, level, message):
+        level = level.upper()
+        if self.log_levels.index(level) <= self.log_levels.index(self.log_level):
+            self.adapter.write(f'{level}: {message}')
 
