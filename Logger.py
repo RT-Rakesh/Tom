@@ -1,4 +1,4 @@
-class SingletonLogger:
+class Logger:
     _instance = None
 
     def __new__(cls, *args, **kwargs):
