@@ -1,0 +1,5 @@
+INFO: Hello World
+FATAL: Hello World
+INFO: Hello World
+FATAL: Hello World
+DEBUG: Hello World
