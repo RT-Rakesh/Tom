@@ -1,0 +1,8 @@
+INFO: The request for bedroom has been made and the user has given 4.0 as the input.
+INFO: The request for bathrooms has been made and the user has given 1.0 as the input.
+INFO: The request for dens has been made and the user has given 0.0 as the input.
+INFO: The request for postal code has been made and the user has given H3H 1J7 as the input.
+INFO: The postal code received is validated and accepted
+INFO: The lat and lon have been successfully retrived.
+
+INFO: The lat and lon has been set and validated.
