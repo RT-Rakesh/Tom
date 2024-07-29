@@ -1,6 +1,6 @@
 
 import streamlit as st
-import app.ml_predict as ml
+import app.property_builder as ml
 from app.app_builder import app_builder
 
 
@@ -12,7 +12,7 @@ def main():
     ren_app._get_den()
     ren_app._get_postal_code()
     ren_app._get_lat_lon()
-
+    ren_app._build()
 
     if ren_app._btn_submit:
         prop=ml.property_builder()

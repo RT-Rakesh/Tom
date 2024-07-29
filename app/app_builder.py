@@ -8,6 +8,8 @@ import pandas as pd
 import streamlit as st
 from Logger.Logger import App_Logger
 from Logger.log_adapters import FileLogAdapter
+from Logger.log_observers import ErrorLogObserver,InfoLogObserver
+from app.obj_model import App
 
 def is_valid_postal_code(postal_code):
     pattern = re.compile(r"^[A-Za-z]\d[A-Za-z] \d[A-Za-z]\d$")
@@ -48,7 +50,16 @@ def select_on_map(lat, lon):
         return _lat,_lng #if acceptance==True else select_on_map(_lat, _lng)
 
 
-logger = App_Logger(FileLogAdapter(filename="app_log.txt"))
+
+info_file_adapter=FileLogAdapter(filename="app_log.txt")
+error_file_adapter=FileLogAdapter(filename="error.txt")
+
+logger = App_Logger()
+logger.add_observer(ErrorLogObserver(adapter=error_file_adapter))
+logger.add_observer(InfoLogObserver(adapter=info_file_adapter))
+
+
+
 class app_builder:
     def __init__(self):
         self._bedrooms = 0
@@ -96,7 +107,7 @@ class app_builder:
                     logger.log_message(level="INFO", message=f"The postal code received is validated and accepted")
                 else:
                     st.sidebar.error("Invalid postal code. Please enter a valid postal code (e.g., H3H 1J7).")
-                    logger.log_message(level="INFO",
+                    logger.log_message(level="ERROR",
                                        message=f"The postal code received is not validated and has to be corrected.")
         except Exception as e:
             logger.log_message(level="ERROR", message=f"There is an error '{e}' in the getting postal code.\n")
@@ -122,6 +133,17 @@ class app_builder:
         except Exception as e:
             logger.log_message(level="ERROR", message=f"There is an error '{e}' in the getting lat and lon.\n")
         return self
+
+    def _build(self):
+        return App(self._bedrooms,
+                    self._bathrooms,
+                    self._den,
+                    self._latitude,
+                    self._longitude,
+                    self._postal_code,
+                    self._btn_submit,
+                    )
+
 
 
 
