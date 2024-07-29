@@ -5,4 +5,4 @@ solution to find the best price given the details of the house such as bedrooms,
 
 To run the app please use the command "streamlit run rental_predict_app.py"
 
-The uml design for this solution ![Uml design](UML Diagram.png)
+The uml design for this solution ![Uml design](https://github.com/RT-Rakesh/Tom/blob/main/UML%20Diagram.png)

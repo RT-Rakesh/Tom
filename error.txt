@@ -1,0 +1,16 @@
+ERROR: There is an error 'cannot unpack non-iterable NoneType object' in the getting lat and lon.
+
+ERROR: There is an error 'cannot unpack non-iterable NoneType object' in the getting lat and lon.
+
+ERROR: There is an error 'cannot unpack non-iterable NoneType object' in the getting lat and lon.
+
+ERROR: There is an error 'cannot unpack non-iterable NoneType object' in the getting lat and lon.
+
+ERROR: There is an error 'cannot unpack non-iterable NoneType object' in the getting lat and lon.
+
+ERROR: There is an error 'cannot unpack non-iterable NoneType object' in the getting lat and lon.
+
+ERROR: There is an error 'cannot unpack non-iterable NoneType object' in the getting lat and lon.
+
+ERROR: There is an error 'cannot unpack non-iterable NoneType object' in the getting lat and lon.
+
