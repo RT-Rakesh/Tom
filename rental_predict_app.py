@@ -29,7 +29,7 @@ def main():
         prop.scale_features()
         prop.find_rental_price()
         prop.build()
-        st.success(f"{CAD int(prop._rental_price[0])} per month would be a good rental price.")
+        st.success(f"CAD {int(prop._rental_price[0])} per month would be a good rental price.")
 
 
 if __name__=="__main__":

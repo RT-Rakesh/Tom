@@ -754,3 +754,33 @@ INFO: The request for dens has been made and the user has given 0.0 as the input
 INFO: The request for postal code has been made and the user has given M4B 2J8 as the input.
 INFO: The postal code received is validated and accepted
 INFO: The lat and lon has been set and validated.
+INFO: The request for bedroom has been made and the user has given 1.0 as the input.
+INFO: The request for bathrooms has been made and the user has given 1.0 as the input.
+INFO: The request for dens has been made and the user has given 0.0 as the input.
+INFO: The request for postal code has been made and the user has given  as the input.
+INFO: The request for bedroom has been made and the user has given 1.0 as the input.
+INFO: The request for bathrooms has been made and the user has given 1.0 as the input.
+INFO: The request for dens has been made and the user has given 0.0 as the input.
+INFO: The request for postal code has been made and the user has given M4B 2J8 as the input.
+INFO: The postal code received is validated and accepted
+INFO: The request for bedroom has been made and the user has given 1.0 as the input.
+INFO: The request for bathrooms has been made and the user has given 1.0 as the input.
+INFO: The request for dens has been made and the user has given 0.0 as the input.
+INFO: The request for postal code has been made and the user has given M4B 2J8 as the input.
+INFO: The postal code received is validated and accepted
+ERROR: There is an error 'cannot unpack non-iterable NoneType object' in the getting lat and lon.
+
+INFO: The request for bedroom has been made and the user has given 1.0 as the input.
+INFO: The request for bathrooms has been made and the user has given 1.0 as the input.
+INFO: The request for dens has been made and the user has given 0.0 as the input.
+INFO: The request for postal code has been made and the user has given M4B 2J8 as the input.
+INFO: The postal code received is validated and accepted
+ERROR: There is an error 'cannot unpack non-iterable NoneType object' in the getting lat and lon.
+
+INFO: The lat and lon has been set and validated.
+INFO: The request for bedroom has been made and the user has given 1.0 as the input.
+INFO: The request for bathrooms has been made and the user has given 1.0 as the input.
+INFO: The request for dens has been made and the user has given 0.0 as the input.
+INFO: The request for postal code has been made and the user has given M4B 2J8 as the input.
+INFO: The postal code received is validated and accepted
+INFO: The lat and lon has been set and validated.
