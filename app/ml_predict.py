@@ -2,13 +2,14 @@ import re
 import pandas as pd
 import numpy as np
 import pickle as pk
+from app.obj_model import Property
 
 _model=pk.load(open('./Models/model.pkl', 'rb'))
 _encoder=pk.load(open('./Models/encoder.pkl', 'rb'))
 _mapping=pk.load(open('./Models/mapping.pkl', 'rb'))
 _scaler=pk.load(open('./Models/scaler.pkl', 'rb'))
 
-class property_prediction:
+class property_builder:
     def __init__(self):
         self._bedrooms = 0
         self._bathrooms = 0
@@ -79,7 +80,15 @@ class property_prediction:
         self._rental_price=model.predict(df)
         return self
 
-
+    def build(self):
+        return Property(self._bedrooms,
+                        self._bathrooms,
+                        self._den,
+                        self._latitude,
+                        self._longitude,
+                        self._postalcode,
+                        self._rental_price,
+                        )
 
 
 
